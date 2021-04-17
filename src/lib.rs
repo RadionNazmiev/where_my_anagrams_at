@@ -1,7 +1,16 @@
-fn anagrams(word: &str, words: &[String]) -> Vec<String> {
-    // your code here
-}
+use itertools::Itertools;
 
+fn anagrams(word: &str, words: &[String]) -> Vec<String> {
+    let mask = word.chars().sorted().collect::<String>();
+    words
+        .iter()
+        .filter(|&w| {
+            let pattern = w.chars().sorted().collect::<String>();
+            pattern == mask
+        })
+        .cloned()
+        .collect::<Vec<String>>()
+}
 
 #[cfg(test)]
 mod tests {
